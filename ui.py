@@ -52,8 +52,6 @@ icon_path_dict = {
     99: 'thunderstorm.PNG',
 }
 
-# a
-
 
 def num_color(num):
     if num < 50:
