@@ -52,7 +52,7 @@ icon_path_dict = {
     99: 'thunderstorm.PNG',
 }
 
-a = 1
+# a
 
 
 def num_color(num):

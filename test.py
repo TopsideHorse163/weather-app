@@ -5,7 +5,7 @@ import requests
 
 LAT = 36.07
 LON = -79.79
-
+# a
 
 def api_call():
     api = f'https://api.open-meteo.com/v1/forecast?latitude={LAT}&longitude={LON}&current_weather=true' \
