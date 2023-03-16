@@ -22,13 +22,11 @@ class WeatherInfo:
 
 # ----- Data I want to display -----
 
-        # Calculating Today's High
-        temp_max_list = data['daily']['temperature_2m_max']
-        self.temp_max_avg = round(mean(temp_max_list))
+        # Today's High
+        self.todays_max = data['daily']['temperature_2m_max'][0]
 
-        # Calculating Today's Low
-        temp_min_list = data['daily']['temperature_2m_min']
-        self.temp_min_avg = round(mean(temp_min_list))
+        # Today's Low
+        self.todays_min = data['daily']['temperature_2m_min'][1]
 
         # Getting Current Temperature and Weather Code
         current_weather = data['current_weather']

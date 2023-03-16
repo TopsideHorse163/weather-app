@@ -16,8 +16,8 @@ HOT_COLOR = '#FF2400' # Scarlet
 
 # --- Global Variables ---
 weather = WeatherInfo()
-temp_max_avg = weather.temp_max_avg
-temp_min_avg = weather.temp_min_avg
+max_temp = weather.todays_max
+min_temp = weather.todays_min
 current_temp = weather.current_temp
 current_weathercode = weather.current_weathercode
 
@@ -102,13 +102,13 @@ class WeatherUi:
         # --- Labels ---
         self.label_todays_high = Label(text=f"Today's High", font=FONT)
         self.label_todays_high.grid(row=0, column=0, pady=20, padx=20)
-        self.label_todays_high_temp = Label(text=f'{temp_max_avg} °F', font=NUM_FONT, fg=num_color(temp_max_avg))
+        self.label_todays_high_temp = Label(text=f'{max_temp} °F', font=NUM_FONT, fg=num_color(max_temp))
         self.label_todays_high_temp.grid(row=1, column=0, pady=20, padx=20)
 
         # --- Low Temp for today ---
         self.label_todays_low = Label(text=f"Today's Low", font=FONT)
         self.label_todays_low.grid(row=0, column=1, pady=20, padx=20)
-        self.label_todays_low_temp = Label(text=f'{temp_min_avg} °F', font=NUM_FONT, fg=num_color(temp_min_avg))
+        self.label_todays_low_temp = Label(text=f'{min_temp} °F', font=NUM_FONT, fg=num_color(min_temp))
         self.label_todays_low_temp.grid(row=1, column=1, pady=20, padx=20)
 
         # --- Current Temperature ---
