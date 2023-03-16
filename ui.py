@@ -4,8 +4,8 @@ import pandas
 
 # --- CONSTANTS ---
 
-# WidthxHeight+Left_Right+Up_Down
-WINDOW_SIZE = '700x600+1000-150'
+# (Width)x(Height)+(Left_Right)+(Up_Down)
+WINDOW_SIZE = '1000x600+800-150'
 
 FONT = ('Arial', 20, 'bold')
 NUM_FONT = ('Arial', 25, 'bold')
@@ -15,11 +15,15 @@ WARM_COLOR = '#FFC000' # Golden Yellow
 HOT_COLOR = '#FF2400' # Scarlet
 
 # --- Global Variables ---
+
 weather = WeatherInfo()
 max_temp = weather.todays_max
 min_temp = weather.todays_min
 current_temp = weather.current_temp
 current_weathercode = weather.current_weathercode
+precipitation_max = weather.precipitation_max
+precipitation_min = weather.precipitation_min
+precipitation_mean = weather.precipitation_mean
 
 # Dictionary pairing weather codes to their corresponding PNG
 icon_path_dict = {
@@ -52,6 +56,8 @@ icon_path_dict = {
     99: 'thunderstorm.PNG',
 }
 
+# --- Functions ---
+
 
 def num_color(num):
     if num < 50:
@@ -60,8 +66,6 @@ def num_color(num):
         return WARM_COLOR
     else:
         return HOT_COLOR
-
-# --- Functions ---
 
 
 def get_weather_conditions():
@@ -114,26 +118,34 @@ class WeatherUi:
         # --- Current Temperature ---
         self.label_current = Label(text=f'Current Temperature', font=FONT)
         self.label_current.grid(row=2, column=1, pady=20, padx=20)
-        self.label_current_temp = Label(text=f'{current_temp} °F', font=NUM_FONT, fg=num_color(current_temp))
-        self.label_current_temp.grid(row=3, column=1, pady=20, padx=20)
+        self.current_temp_label = Label(text=f'{current_temp} °F', font=NUM_FONT, fg=num_color(current_temp))
+        self.current_temp_label.grid(row=3, column=1, pady=20, padx=20)
 
         # --- Weather Code ---
-        self.label_weather_code = Label(text=f'Current Weather code: {current_weathercode}', font=FONT)
-        self.label_weather_code.grid(row=2, column=0, pady=20, padx=20)
+        self.weather_code_label = Label(text=f'Current Weather code: {current_weathercode}', font=FONT)
+        self.weather_code_label.grid(row=2, column=0, pady=20, padx=20)
 
         # --- Weather Condition ---
-        self.label_weather_condition = Label(text=get_weather_conditions(), font=FONT)
-        self.label_weather_condition.grid(row=3, column=0, pady=20, padx=20)
-        self.label_weather_condition.config(wraplength=200, justify='center')
+        self.weather_condition_label = Label(text=get_weather_conditions(), font=FONT)
+        self.weather_condition_label.grid(row=3, column=0, pady=20, padx=20)
+        self.weather_condition_label.config(wraplength=200, justify='center')
 
         # --- Weather Icon ---
         self.weather_icon = PhotoImage(file=f'images/{get_weather_icon()}')
-        self.label_weather_icon = Label(image=self.weather_icon)
-        self.label_weather_icon.grid(row=4, column=0, pady=20, padx=20)
+        self.weather_icon_label = Label(image=self.weather_icon)
+        self.weather_icon_label.grid(row=4, column=0, pady=20, padx=20)
 
         # --- Temperature Icon ---
         self.temp_icon = PhotoImage(file=f'images/{get_temp_icon()}')
-        self.label_temp_icon = Label(image=self.temp_icon)
-        self.label_temp_icon.grid(row=4, column=1, pady=20, padx=20)
+        self.temp_icon_label = Label(image=self.temp_icon)
+        self.temp_icon_label.grid(row=4, column=1, pady=20, padx=20)
+
+        # --- Precipitation Chance ---
+        self.rain_chance_label = Label(text='Chance of Rain', font=FONT)
+        self.rain_chance_label.grid(row=0, column=2, pady=20, padx=20)
+        self.precipitation_max_label = Label(text=f'{precipitation_mean} %', font=NUM_FONT, fg='#0096FF')
+        self.precipitation_max_label.grid(row=1, column=2)
 
         self.window.mainloop()
+
+#WeatherUi()

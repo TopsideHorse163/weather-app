@@ -1,5 +1,5 @@
 import requests
-from statistics import mean
+
 
 """ 
 
@@ -16,7 +16,8 @@ class WeatherInfo:
 
     def __init__(self):
         api = f'https://api.open-meteo.com/v1/forecast?latitude={LAT}&longitude={LON}&current_weather=true' \
-              f'&temperature_unit=fahrenheit&daily=temperature_2m_max,temperature_2m_min&timezone=EST'
+              f'&temperature_unit=fahrenheit&daily=temperature_2m_max,temperature_2m_min,' \
+              f'precipitation_probability_max,precipitation_probability_min,precipitation_probability_mean&timezone=EST'
         response = requests.get(api)
         data = response.json()
 
@@ -33,6 +34,11 @@ class WeatherInfo:
         self.current_temp = current_weather['temperature']
         self.current_weathercode = current_weather['weathercode']
 
+        # Getting Precipitation %
+        self.precipitation_max = data['daily']['precipitation_probability_max'][0]
+        self.precipitation_min = data['daily']['precipitation_probability_min'][0]
+        self.precipitation_mean = data['daily']['precipitation_probability_mean'][0]
+
 # ----- Data I don't want to display -----
 
         self.latitude = data['latitude']
@@ -46,3 +52,4 @@ class WeatherInfo:
         self.daily_time = data['daily']['time']
         self.current_windspeed = current_weather['windspeed']
         self.current_winddirection = current_weather['winddirection']
+
