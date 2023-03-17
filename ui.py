@@ -55,6 +55,7 @@ icon_path_dict = {
     96: 'thunderstorm.PNG',
     99: 'thunderstorm.PNG',
 }
+
 locations = ['Greensboro', 'Radford', 'Forest']
 # --- Functions ---
 
@@ -69,14 +70,13 @@ def num_color(num):
 
 
 def get_weather_conditions(wther_code):
-    # I created the csv file from the weather code key on the API's website
+    # I created the csv file from the weather code key on the APIs website
     data = pandas.read_csv('wmo_weather_codes.csv')
     a = data.condition.values[data['code'] == wther_code]
     return a[0]
 
 
 def get_weather_icon(wc):
-
     if wc in icon_path_dict:
         wi = icon_path_dict[wc]
         return wi
@@ -85,14 +85,12 @@ def get_weather_icon(wc):
 
 
 def get_temp_icon(ct):
-
     if ct < 50:
         return 'coldtemp.PNG'
     elif 50 < ct < 70:
         return 'moderatetemp.PNG'
     else:
         return 'hottemp.PNG'
-
 
 
 class WeatherUi:
@@ -114,29 +112,34 @@ class WeatherUi:
         self.window.title('Weather App')
 
         # --- Labels ---
-        self.label_todays_high = Label(text=f"Today's High", font=FONT)
+        self.label_todays_high = Label(self.window, text=f"Today's High", font=FONT)
         self.label_todays_high.grid(row=0, column=0, pady=20, padx=20)
-        self.label_todays_high_temp = Label(text=f'{self.max_temp} °F', font=NUM_FONT, fg=num_color(self.max_temp))
+        self.label_todays_high_temp = Label(self.window, text=f'{self.max_temp} °F', font=NUM_FONT,
+                                            fg=num_color(self.max_temp))
         self.label_todays_high_temp.grid(row=1, column=0, pady=20, padx=20)
 
         # --- Low Temp for today ---
-        self.label_todays_low = Label(text=f"Today's Low", font=FONT)
+        self.label_todays_low = Label(self.window, text=f"Today's Low", font=FONT)
         self.label_todays_low.grid(row=0, column=1, pady=20, padx=20)
-        self.label_todays_low_temp = Label(text=f'{self.min_temp} °F', font=NUM_FONT, fg=num_color(self.min_temp))
+        self.label_todays_low_temp = Label(self.window, text=f'{self.min_temp} °F', font=NUM_FONT,
+                                           fg=num_color(self.min_temp))
         self.label_todays_low_temp.grid(row=1, column=1, pady=20, padx=20)
 
         # --- Current Temperature ---
-        self.label_current = Label(text=f'Current Temperature', font=FONT)
+        self.label_current = Label(self.window, text=f'Current Temperature', font=FONT)
         self.label_current.grid(row=2, column=1, pady=20, padx=20)
-        self.current_temp_label = Label(text=f'{self.current_temp} °F', font=NUM_FONT, fg=num_color(self.current_temp))
+        self.current_temp_label = Label(self.window, text=f'{self.current_temp} °F', font=NUM_FONT,
+                                        fg=num_color(self.current_temp))
         self.current_temp_label.grid(row=3, column=1, pady=20, padx=20)
 
         # --- Weather Code ---
-        self.weather_code_label = Label(text=f'Current Weather code: {self.current_weathercode}', font=FONT)
+        self.weather_code_label = Label(self.window, text=f'Current Weather code: {self.current_weathercode}',
+                                        font=FONT)
         self.weather_code_label.grid(row=2, column=0, pady=20, padx=20)
 
         # --- Weather Condition ---
-        self.weather_condition_label = Label(text=get_weather_conditions(self.current_weathercode), font=FONT)
+        self.weather_condition_label = Label(self.window, text=get_weather_conditions(self.current_weathercode),
+                                             font=FONT)
         self.weather_condition_label.grid(row=3, column=0, pady=20, padx=20)
         self.weather_condition_label.config(wraplength=200, justify='center')
 
@@ -147,33 +150,37 @@ class WeatherUi:
 
         # --- Temperature Icon ---
         self.temp_icon = PhotoImage(file=f'images/{get_temp_icon(self.current_temp)}')
-        self.temp_icon_label = Label(image=self.temp_icon)
+        self.temp_icon_label = Label(self.window, image=self.temp_icon)
         self.temp_icon_label.grid(row=4, column=1, pady=20, padx=20)
 
         # --- Precipitation Chance ---
-        self.rain_chance_label = Label(text='Chance of Rain', font=FONT)
+        self.rain_chance_label = Label(self.window, text='Chance of Rain', font=FONT)
         self.rain_chance_label.grid(row=0, column=2, pady=20, padx=20)
-        self.precipitation_max_label = Label(text=f'{self.precipitation_mean} %', font=NUM_FONT, fg='#0096FF')
+        self.precipitation_max_label = Label(self.window, text=f'{self.precipitation_mean} %', font=NUM_FONT,
+                                             fg='#0096FF')
         self.precipitation_max_label.grid(row=1, column=2)
 
         # --- Location Picker ---
-        self.location_picker_label = Label(text='Pick a Location', font=FONT)
+        self.location_picker_label = Label(self.window, text='Pick a Location', font=FONT)
         self.location_picker_label.grid(row=2, column=2, pady=20, padx=20)
 
         self.clicked = StringVar()
-        self.clicked.set('Select a Location')
+        self.clicked.set(loc)
         self.drop = OptionMenu(self.window, self.clicked, *locations)
         self.drop.config(font=FONT)
         self.drop.grid(row=3, column=2)
 
         # --- Submit Button ---
-        self.submit_button = Button(text='Submit', command=self.refresh)
+        self.submit_button = Button(self.window, text='Submit', command=self.refresh)
+        self.submit_button.config(font=FONT)
         self.submit_button.grid(row=4, column=2, pady=20, padx=20)
+
         self.window.mainloop()
 
     def refresh(self):
         new_loc = self.clicked.get()
+        self.clicked.set(new_loc)
         self.window.destroy()
         WeatherUi(new_loc)
 
-#WeatherUi()
+# WeatherUi()

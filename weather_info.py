@@ -28,7 +28,7 @@ class WeatherInfo:
               f'precipitation_probability_max,precipitation_probability_min,precipitation_probability_mean&timezone=EST'
         response = requests.get(api)
         data = response.json()
-        #print(json.dumps(data, indent=4))
+        # print(json.dumps(data, indent=4))
 # ----- Data I want to display -----
 
         # Today's High
@@ -60,4 +60,3 @@ class WeatherInfo:
         self.daily_time = data['daily']['time']
         self.current_windspeed = current_weather['windspeed']
         self.current_winddirection = current_weather['winddirection']
-
