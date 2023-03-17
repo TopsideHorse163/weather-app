@@ -1,6 +1,6 @@
 from ui import WeatherUi
-from weather_info import WeatherInfo
-from tkinter import *
+# from weather_info import WeatherInfo
+# from tkinter import *
 
 """
 - I am going to create my own rain alert type program here. OpenWeather changed their API TOS, and I was not sure how to
@@ -14,37 +14,5 @@ my desktop.
 - Also, might try and write the same program in Java just to try it. I have no idea how to make API calls in Java
 """
 
-
-# locations = ['Greensboro', 'Radford', 'Forest']
-# window = Tk()
-# window.geometry('200x200+1350-450')
-# window.title('Pick a Location')
-#
-# Label(text='Pick a location').pack()
-#
-# clicked = StringVar()
-# clicked.set(locations[0])
-#
-# OptionMenu(window, clicked, *locations).pack()
-#
-# loc = ''
-# print(f'main loc 1: {loc}')
-#
-#
-# def set_location():
-#     global loc
-#     loc = clicked.get()
-#     print(f'set_location loc: {loc}')
-#     window.quit()
-#
-#
-# def close():
-#     window.destroy()
-#
-#
-# Button(text='Submit', command=lambda: [set_location(), close()]).pack()
-#
-# window.mainloop()
-# print(f'main loc 2: {loc}')
 loc = 'Greensboro'
 WeatherUi(loc)

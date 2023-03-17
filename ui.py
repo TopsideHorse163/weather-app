@@ -10,21 +10,11 @@ WINDOW_SIZE = '1000x600+800-150'
 FONT = ('Arial', 20, 'bold')
 NUM_FONT = ('Arial', 25, 'bold')
 
-COLD_COLOR = '#87CEEB' # Sky Blue
-WARM_COLOR = '#FFC000' # Golden Yellow
-HOT_COLOR = '#FF2400' # Scarlet
+COLD_COLOR = '#87CEEB'  # Sky Blue
+WARM_COLOR = '#FFC000'  # Golden Yellow
+HOT_COLOR = '#FF2400'  # Scarlet
 
 # --- Global Variables ---
-
-# weather = WeatherInfo()
-# max_temp = weather.todays_max
-# min_temp = weather.todays_min
-# current_temp = weather.current_temp
-# current_weathercode = weather.current_weathercode
-# precipitation_max = weather.precipitation_max
-# precipitation_min = weather.precipitation_min
-# precipitation_mean = weather.precipitation_mean
-
 # Dictionary pairing weather codes to their corresponding PNG
 icon_path_dict = {
     0: 'clearsky.PNG',
@@ -57,6 +47,8 @@ icon_path_dict = {
 }
 
 locations = ['Greensboro', 'Radford', 'Forest']
+
+
 # --- Functions ---
 
 
@@ -114,16 +106,16 @@ class WeatherUi:
         # --- Labels ---
         self.label_todays_high = Label(self.window, text=f"Today's High", font=FONT)
         self.label_todays_high.grid(row=0, column=0, pady=20, padx=20)
-        self.label_todays_high_temp = Label(self.window, text=f'{self.max_temp} °F', font=NUM_FONT,
-                                            fg=num_color(self.max_temp))
-        self.label_todays_high_temp.grid(row=1, column=0, pady=20, padx=20)
+        self.max_temp_label = Label(self.window, text=f'{self.max_temp} °F', font=NUM_FONT,
+                                    fg=num_color(self.max_temp))
+        self.max_temp_label.grid(row=1, column=0, pady=20, padx=20)
 
         # --- Low Temp for today ---
         self.label_todays_low = Label(self.window, text=f"Today's Low", font=FONT)
         self.label_todays_low.grid(row=0, column=1, pady=20, padx=20)
-        self.label_todays_low_temp = Label(self.window, text=f'{self.min_temp} °F', font=NUM_FONT,
-                                           fg=num_color(self.min_temp))
-        self.label_todays_low_temp.grid(row=1, column=1, pady=20, padx=20)
+        self.min_temp_label = Label(self.window, text=f'{self.min_temp} °F', font=NUM_FONT,
+                                    fg=num_color(self.min_temp))
+        self.min_temp_label.grid(row=1, column=1, pady=20, padx=20)
 
         # --- Current Temperature ---
         self.label_current = Label(self.window, text=f'Current Temperature', font=FONT)
@@ -133,9 +125,9 @@ class WeatherUi:
         self.current_temp_label.grid(row=3, column=1, pady=20, padx=20)
 
         # --- Weather Code ---
-        self.weather_code_label = Label(self.window, text=f'Current Weather code: {self.current_weathercode}',
-                                        font=FONT)
-        self.weather_code_label.grid(row=2, column=0, pady=20, padx=20)
+        self.current_weathercode_label = Label(self.window, text=f'Current Weather code: {self.current_weathercode}',
+                                               font=FONT)
+        self.current_weathercode_label.grid(row=2, column=0, pady=20, padx=20)
 
         # --- Weather Condition ---
         self.weather_condition_label = Label(self.window, text=get_weather_conditions(self.current_weathercode),
@@ -178,9 +170,35 @@ class WeatherUi:
         self.window.mainloop()
 
     def refresh(self):
+        # Get new Location
         new_loc = self.clicked.get()
         self.clicked.set(new_loc)
-        self.window.destroy()
-        WeatherUi(new_loc)
+
+        # Update the weather variables
+        self.weather = WeatherInfo(new_loc)
+        self.max_temp = self.weather.todays_max
+        self.min_temp = self.weather.todays_min
+        self.current_temp = self.weather.current_temp
+        self.current_weathercode = self.weather.current_weathercode
+        self.precipitation_max = self.weather.precipitation_max
+        self.precipitation_min = self.weather.precipitation_min
+        self.precipitation_mean = self.weather.precipitation_mean
+
+        # Update Labels with the new weather data
+        self.max_temp_label.config(text=f'{self.max_temp}')
+        self.min_temp_label.config(text=f'{self.min_temp}')
+
+        self.current_temp_label.config(text=f'{self.current_temp}')
+        self.current_weathercode_label.config(text=f'Current Weather code: {self.current_weathercode}')
+
+        self.precipitation_max_label.config(text=self.precipitation_max)
+        self.weather_condition_label.config(text=get_weather_conditions(self.current_weathercode))
+
+        # Update the images on the screen
+        self.weather_icon.config(file=f'images/{get_weather_icon(self.current_weathercode)}')
+        self.weather_icon_label.config(image=self.weather_icon)
+
+        self.temp_icon.config(file=f'images/{get_temp_icon(self.current_temp)}')
+        self.temp_icon_label.config(image=self.temp_icon)
 
 # WeatherUi()
