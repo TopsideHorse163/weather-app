@@ -23,7 +23,7 @@ clicked.set(locations[0])
 
 drop = OptionMenu(window, clicked, *locations)
 loc = None
-button = 10
+button = 0
 
 window.mainloop()
 
