@@ -1,4 +1,5 @@
 from ui import WeatherUi
+from tkinter import *
 """
 - I am going to create my own rain alert type program here. OpenWeather changed their API TOS, and I was not sure how to
 get it to work properly so, I am going to try to use Open-meteo.com instead.
@@ -10,5 +11,20 @@ way to text me the weather at a certain time of day which is what the normal pro
 my desktop.
 - Also, might try and write the same program in Java just to try it. I have no idea how to make API calls in Java
 """
+locations = ['Greensboro', 'Radford', 'Forest']
+window = Tk()
+window.geometry('300x300')
+window.title('Pick a Location')
+
+label = Label(text='Pick a location')
+
+clicked = StringVar(window)
+clicked.set(locations[0])
+
+drop = OptionMenu(window, clicked, *locations)
+loc = None
+button = 0
+
+window.mainloop()
 
 WeatherUi()
