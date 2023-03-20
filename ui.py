@@ -17,7 +17,6 @@ COLD_COLOR = '#87CEEB'  # Sky Blue
 WARM_COLOR = '#FFC000'  # Golden Yellow
 HOT_COLOR = '#FF2400'  # Scarlet
 
-# --- Global Variables ---
 # Dictionary pairing weather codes to their corresponding PNG
 icon_path_dict = {
     0: 'clearsky.PNG',
@@ -79,7 +78,7 @@ def get_weather_icon(wc):
 def get_temp_icon(ct):
     if ct < 50:
         return 'coldtemp.PNG'
-    elif 50 < ct < 70:
+    elif 50 <= ct < 70:
         return 'moderatetemp.PNG'
     else:
         return 'hottemp.PNG'

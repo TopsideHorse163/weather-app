@@ -12,7 +12,7 @@ https://open-meteo.com/en/docs#latitude=36.07&longitude=-79.79&hourly=temperatur
 class WeatherInfo:
 
     def __init__(self, loc):
-        print(f'weather_info loc: {loc}')
+        # print(f' weather_info loc: {loc}')
 
         with open('locations.json', 'r+') as file:
             file_data = json.load(file)
