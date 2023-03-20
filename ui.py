@@ -210,7 +210,7 @@ class WeatherUi:
         self.current_temp_label.config(text=f'{self.current_temp}', fg=num_color(self.current_temp))
         self.current_weathercode_label.config(text=f'Current Weather code: {self.current_weathercode}')
 
-        self.precipitation_max_label.config(text=self.precipitation_max)
+        self.precipitation_max_label.config(text=f'{self.precipitation_max} %')
         self.weather_condition_label.config(text=get_weather_conditions(self.current_weathercode))
 
         # Update the images on the screen
