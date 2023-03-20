@@ -1,5 +1,7 @@
-from tkinter import *
 from weather_info import WeatherInfo
+from add_location import AddLocation
+from tkinter import *
+import tkinter
 import pandas
 import json
 
@@ -47,18 +49,6 @@ icon_path_dict = {
     99: 'thunderstorm.PNG',
 }
 
-try:
-    with open('locations.json', 'r+') as file:
-        file_data = json.load(file)
-        locations = file_data.keys()
-except FileNotFoundError:
-    print('File not found')
-else:
-    pass
-
-
-
-
 # --- Functions ---
 
 
@@ -95,10 +85,18 @@ def get_temp_icon(ct):
         return 'hottemp.PNG'
 
 
+def get_locations():
+    with open('locations.json', 'r+') as file:
+        file_data = json.load(file)
+        locations = file_data.keys()
+        return locations
+
+
 class WeatherUi:
 
     def __init__(self, loc):
-        print(f'ui loc: {loc}')
+        get_locations()
+        # print(f' ui loc: {loc}')
         self.weather = WeatherInfo(loc)
         self.max_temp = self.weather.todays_max
         self.min_temp = self.weather.todays_min
@@ -162,22 +160,34 @@ class WeatherUi:
                                              fg='#0096FF')
         self.precipitation_max_label.grid(row=1, column=2)
 
-        # --- Location Picker ---
+        # --- Option Menu ---
         self.location_picker_label = Label(self.window, text='Pick a Location', font=FONT)
         self.location_picker_label.grid(row=2, column=2, pady=20, padx=20)
 
         self.clicked = StringVar()
         self.clicked.set(loc)
-        self.drop = OptionMenu(self.window, self.clicked, *locations)
+
+        self.drop = OptionMenu(self.window, self.clicked, *get_locations())
         self.drop.config(font=FONT)
         self.drop.grid(row=3, column=2)
 
-        # --- Submit Button ---
-        self.submit_button = Button(self.window, text='Submit', command=self.refresh)
+        # --- Buttons ---
+        self.frame = tkinter.Frame(self.window)
+        self.frame.grid(row=4, column=2, pady=20, padx=20)
+
+        self.submit_button = Button(self.frame, text='Submit', command=self.refresh)
         self.submit_button.config(font=FONT)
-        self.submit_button.grid(row=4, column=2, pady=20, padx=20)
+        self.submit_button.pack(side=tkinter.TOP, pady=10, padx=20)
+
+        self.add_loc_button = Button(self.frame, text='Add Location', command=self.add_location)
+        self.add_loc_button.config(font=FONT)
+        self.add_loc_button.pack(side=BOTTOM, pady=20, padx=20)
 
         self.window.mainloop()
+
+    def add_location(self):
+        self.window.destroy()
+        AddLocation()
 
     def refresh(self):
         # Get new Location

@@ -8,14 +8,6 @@ https://open-meteo.com/en/docs#latitude=36.07&longitude=-79.79&hourly=temperatur
 
 """
 
-# LAT = 36.07
-# LON = -79.79
-locations = {
-    'Greensboro': {'LAT': 36.07, 'LON': -79.79},
-    'Radford': {'LAT': 37.13, 'LON': -80.58},
-    'Forest': {'LAT': 37.36, 'LON': -79.29}
-}
-
 
 class WeatherInfo:
 
@@ -33,6 +25,7 @@ class WeatherInfo:
         response = requests.get(api)
         data = response.json()
         # print(json.dumps(data, indent=4))
+
 # ----- Data I want to display -----
 
         # Today's High

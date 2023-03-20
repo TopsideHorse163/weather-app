@@ -22,9 +22,6 @@ def api_call():
     # today_max = data['daily']['temperature_2m_max'][0]
 
 
-
-
-
 def asdf():
     wther_code = 3
     data = pandas.read_csv('wmo_weather_codes.csv')
