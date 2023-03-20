@@ -55,7 +55,7 @@ icon_path_dict = {
 def num_color(num):
     if num < 50:
         return COLD_COLOR
-    elif 50 < num < 70:
+    elif 50 <= num < 70:
         return WARM_COLOR
     else:
         return HOT_COLOR
@@ -205,10 +205,10 @@ class WeatherUi:
         self.precipitation_mean = self.weather.precipitation_mean
 
         # Update Labels with the new weather data
-        self.max_temp_label.config(text=f'{self.max_temp}')
-        self.min_temp_label.config(text=f'{self.min_temp}')
+        self.max_temp_label.config(text=f'{self.max_temp}', fg=num_color(self.max_temp))
+        self.min_temp_label.config(text=f'{self.min_temp}', fg=num_color(self.min_temp))
 
-        self.current_temp_label.config(text=f'{self.current_temp}')
+        self.current_temp_label.config(text=f'{self.current_temp}', fg=num_color(self.current_temp))
         self.current_weathercode_label.config(text=f'Current Weather code: {self.current_weathercode}')
 
         self.precipitation_max_label.config(text=self.precipitation_max)
