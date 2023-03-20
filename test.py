@@ -2,7 +2,8 @@ import json
 import datetime
 import pandas
 import requests
-
+from tkinter import *
+import json
 LAT = 36.07
 LON = -79.79
 
@@ -21,7 +22,7 @@ def api_call():
     # today_max = data['daily']['temperature_2m_max'][0]
 
 
-# print(today_max)
+
 
 
 def asdf():
@@ -31,5 +32,18 @@ def asdf():
     print(a)
 
 
-# asdf()
-api_call()
+def option_menu_test():
+
+    with open('locations.json', 'r+') as file:
+        file_data = json.load(file)
+        new_dict = file_data['city'].keys()
+        print(new_dict)
+
+    window = Tk()
+    value = StringVar()
+    drop = OptionMenu(window, value, *new_dict)
+    drop.pack()
+    window.mainloop()
+
+# option_menu_test()
+

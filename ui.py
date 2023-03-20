@@ -1,6 +1,7 @@
 from tkinter import *
 from weather_info import WeatherInfo
 import pandas
+import json
 
 # --- CONSTANTS ---
 
@@ -46,7 +47,16 @@ icon_path_dict = {
     99: 'thunderstorm.PNG',
 }
 
-locations = ['Greensboro', 'Radford', 'Forest']
+try:
+    with open('locations.json', 'r+') as file:
+        file_data = json.load(file)
+        locations = file_data.keys()
+except FileNotFoundError:
+    print('File not found')
+else:
+    pass
+
+
 
 
 # --- Functions ---

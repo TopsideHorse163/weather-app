@@ -21,8 +21,12 @@ class WeatherInfo:
 
     def __init__(self, loc):
         print(f'weather_info loc: {loc}')
-        LAT = locations[loc]['LAT']
-        LON = locations[loc]['LON']
+
+        with open('locations.json', 'r+') as file:
+            file_data = json.load(file)
+            LAT = file_data[loc]['LAT']
+            LON = file_data[loc]['LON']
+
         api = f'https://api.open-meteo.com/v1/forecast?latitude={LAT}&longitude={LON}&current_weather=true' \
               f'&temperature_unit=fahrenheit&daily=temperature_2m_max,temperature_2m_min,' \
               f'precipitation_probability_max,precipitation_probability_min,precipitation_probability_mean&timezone=EST'
