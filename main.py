@@ -13,6 +13,9 @@ way to text me the weather at a certain time of day which is what the normal pro
 - I wrote a batch file the will cd into the rain-alert directory and run the main.py file, this lets me run this from
 my desktop.
 - Also, might try and write the same program in Java just to try it. I have no idea how to make API calls in Java
+- As of 3-22-23 This program is mostly complete, I cannot think of anything else to add other than improving the look
+of the overall UI or adding more weather information. The information being displayed currently is the only information
+that I understand and find useful. 
 """
 
 loc = 'Greensboro'
