@@ -54,7 +54,7 @@ icon_path_dict = {
 def num_color(num):
     if num < 50:
         return COLD_COLOR
-    elif 50 <= num < 70:
+    elif 50 <= num < 75:
         return WARM_COLOR
     else:
         return HOT_COLOR
@@ -165,8 +165,8 @@ class WeatherUi:
 
         self.clicked = StringVar()
         self.clicked.set(loc)
-
-        self.drop = OptionMenu(self.window, self.clicked, *get_locations())
+        locations = sorted(get_locations())
+        self.drop = OptionMenu(self.window, self.clicked, *locations)
         self.drop.config(font=FONT)
         self.drop.grid(row=3, column=2)
 
