@@ -4,14 +4,14 @@ import pandas
 import requests
 from tkinter import *
 import json
-LAT = 36.07
-LON = -79.79
+LAT = 39.85
+LON = -86.26
 
 date = datetime.date.today()
 
 
 # print(date)
-def api_call():
+def api_call(LAT, LON):
     api = f'https://api.open-meteo.com/v1/forecast?latitude={LAT}&longitude={LON}&current_weather=true' \
           '&temperature_unit=fahrenheit&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,' \
           'precipitation_probability_min,precipitation_probability_mean&timezone=EST'
@@ -20,7 +20,8 @@ def api_call():
     data = response.json()
     print(json.dumps(data, indent=4))
     # today_max = data['daily']['temperature_2m_max'][0]
-
+api_call(LAT, LON)
+api_call(36.07, -79.79)
 
 def asdf():
     wther_code = 3
