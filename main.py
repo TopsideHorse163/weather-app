@@ -16,6 +16,9 @@ my desktop.
 - As of 3-22-23 This program is mostly complete, I cannot think of anything else to add other than improving the look
 of the overall UI or adding more weather information. The information being displayed currently is the only information
 that I understand and find useful. 
+- 3-24-23: I added the ability to search for a location using open meteo's geocoding api. Now when you go to add a
+location you can just type in the name of the city and it will give a list of results that you can pick from, the
+program will then add that location to the locations.json file and reopen the ui with the newly added city.
 """
 
 loc = 'Greensboro'
