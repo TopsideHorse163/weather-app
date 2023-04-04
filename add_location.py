@@ -19,7 +19,7 @@ class AddLocation:
         self.city_entry = Entry(self.window, font=FONT)
         self.city_entry.grid(row=1, column=0, padx=10, pady=10)
 
-        self.submit = Button(text='Submit', command=self.geocode_api_call, font=FONT)
+        self.submit = Button(text='Search', command=self.geocode_api_call, font=FONT)
         self.submit.grid(row=6, column=0, padx=10, pady=10)
 
         self.list_box = Listbox(self.window, selectmode='SINGLE', width=50)
@@ -31,19 +31,24 @@ class AddLocation:
         self.window.mainloop()
 
     def geocode_api_call(self):
-        city = self.city_entry.get()
-        api = f'https://geocoding-api.open-meteo.com/v1/search?name={city}'
-        response = requests.get(api)
-        data = response.json()
-        search_results = data['results']
-        for c in search_results:
-            city = c['name']
-            state = c['admin1']
-            country = c['country_code']
-            lat = c['latitude']
-            lon = c['longitude']
-            result = f'{city}, {state}, {country}, {lat}, {lon}'
-            self.list_box.insert("end", result)
+        self.list_box.delete(0, END)
+        try:
+            city = self.city_entry.get()
+            api = f'https://geocoding-api.open-meteo.com/v1/search?name={city}'
+            response = requests.get(api)
+            data = response.json()
+            search_results = data['results']
+        except KeyError:
+            self.list_box.insert("end", "City not found. Try Again")
+        else:
+            for c in search_results:
+                city = c['name']
+                state = c['admin1']
+                country = c['country_code']
+                lat = c['latitude']
+                lon = c['longitude']
+                result = f'{city}, {state}, {country}, {lat}, {lon}'
+                self.list_box.insert("end", result)
 
     def add_location(self):
         selected_index = self.list_box.curselection()
