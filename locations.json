@@ -50,5 +50,13 @@
     "West Palm Beach": {
         "LAT": "26.71534",
         "LON": "-80.05337"
+    },
+    "Silver Spring": {
+        "LAT": "38.99067",
+        "LON": "-77.02609"
+    },
+    "Capon Springs": {
+        "LAT": "39.13622",
+        "LON": "-78.48445"
     }
 }
